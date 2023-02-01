@@ -95,12 +95,12 @@ const profileSchema = new Schema({
       type: String,
     },
   },
-  date: {
+  createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-const profile = mongoose.model('profile', userSchema);
+const profile = mongoose.model('profile', profileSchema);
 
 module.exports = profile;
