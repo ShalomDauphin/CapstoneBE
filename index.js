@@ -9,6 +9,7 @@ mongoose.set('strictQuery', true);
 require('dotenv').config();
 
 const posts = require('./routes/posts');
+const profiles = require('./routes/profiles');
 
 const app = express();
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(logger);
 
 //Mount routers
 app.use('/api/v1/posts', posts);
+app.use('/api/v1/profiles', profiles);
 
 app.use(errorHandler);
 //connect to the database

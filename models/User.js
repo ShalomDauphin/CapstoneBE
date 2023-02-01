@@ -1,4 +1,7 @@
 const { Schema, default: mongoose } = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const userSchema = new Schema({
   name: {
@@ -23,7 +26,5 @@ const userSchema = new Schema({
     default: Date.now,
   },
 });
-
-const user = mongoose.model('user', userSchema);
 
 module.exports = user;
