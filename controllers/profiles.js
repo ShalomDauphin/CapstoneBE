@@ -1,6 +1,7 @@
 const ErrorResponse = require('../utils/errorResponse');
 const asyncHandler = require('../middlewares/async');
 const Profile = require('../models/Profile');
+const User = require('../models/User');
 
 //@desc   Get all Profile
 //@route  GET /api/v1/profile
@@ -29,12 +30,31 @@ exports.getOneProfile = asyncHandler(async (req, res, next) => {
 //@route  POST /api/v1/profiles/
 //@access Private
 exports.createProfile = asyncHandler(async (req, res, next) => {
+  req.body.user = req.user.id;
+  //check for published bootcamps
+  const uploadedProfile = await Profile.findOne({ user: req.user.id });
+  // if the user in not an admin they can add one boootcamp
+  if (uploadedProfile) {
+    return next(
+      new ErrorResponse(
+        `The User with ID ${req.user.id} has already published a profile`,
+        400
+      )
+    );
+  }
   const profile = await Profile.create(req.body);
   res.status(201).json({
     success: true,
     data: profile,
   });
 });
+// exports.createProfile = asyncHandler(async (req, res, next) => {
+//   const profile = await Profile.create(req.body);
+//   res.status(201).json({
+//     success: true,
+//     data: profile,
+//   });
+// });
 
 //@desc   Update  profile
 //@route  PUT /api/v1/profiles/:id

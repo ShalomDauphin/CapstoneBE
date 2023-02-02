@@ -8,13 +8,14 @@ const {
   deleteProfile,
 } = require('../controllers/profiles');
 const router = express.Router();
+const { protect } = require('../middlewares/auth');
 
-router.route('/').get(getProfiles).post(createProfile);
+router.route('/').get(getProfiles).post(protect, createProfile);
 
 router
   .route('/:id')
   .get(getOneProfile)
-  .put(updateProfile)
-  .delete(deleteProfile);
+  .put(protect, updateProfile)
+  .delete(protect, deleteProfile);
 
 module.exports = router;
