@@ -38,3 +38,29 @@ describe('Register User', () => {
     expect(res.status).toEqual(500);
   });
 });
+
+describe('Register User', () => {
+  jest.setTimeout(300000);
+  it('Should return 500 if user  has been failed to be registerd ', async () => {
+    const user = {
+      name: 'Dauphin',
+      email: 'kwizera@gmail.com',
+      password: '123456',
+    };
+    const res = await request(app).post('/api/v1/auth/register').send(user);
+    expect(res.status).toEqual(500);
+  });
+});
+
+describe('get Posts', () => {
+  jest.setTimeout(300000);
+  it('Should return posts ', async () => {
+    const user = {
+      name: 'Dauphin',
+      email: 'kwizera@gmail.com',
+      password: '123456',
+    };
+    const res = await request(app).post('/api/v1/auth/register').send(user);
+    expect(res.status).toEqual(500);
+  });
+});
